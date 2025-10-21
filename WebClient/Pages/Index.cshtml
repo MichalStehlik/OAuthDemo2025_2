@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var isAuth = User.Identity?.IsAuthenticated ?? false;
+}
+
+<p>Stav @(isAuth ? "Přihlášen" : "Nepřihlášen")</p>
+
+<div class="btn-group">
+    @if (!isAuth)
+    {
+        <form method="post" asp-page-handler="Login">
+            <button type="submit" class="btn btn-primary">Přihlásit se</button>
+        </form>
+    }
+    else
+    {
+        <form method="post" asp-page-handler="Logout">
+            <button type="submit" class="btn btn-primary">Odhlásit se</button>
+        </form>
+    }
+</div>
+
+<div>
+    <p>ID token</p>
+    <pre><code>@(Model.IdToken ?? "-")</code></pre>
+    <p>Access token</p>
+    <pre><code>@(Model.AccessToken ?? "-")</code></pre>
+    <p>Refresh token</p>
+    <pre><code>@(Model.RefreshToken ?? "-")</code></pre>
+</div>
