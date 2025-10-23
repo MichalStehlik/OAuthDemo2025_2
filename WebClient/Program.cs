@@ -24,7 +24,7 @@ builder.Services.AddAuthentication(options =>
         options.Scope.Clear();
         options.Scope.Add("profile");
         options.Scope.Add("openid");
-        //options.Scope.Add("demo");
+        options.Scope.Add("demo.api");
         //options.Scope.Add("offline_access");
         //options.Scope.Add("email");
         options.GetClaimsFromUserInfoEndpoint = false; // true
@@ -38,6 +38,7 @@ builder.Services.AddAuthentication(options =>
         options.SignedOutCallbackPath = "/signout-callback-oidc";
         options.SignedOutRedirectUri = "/";
     });
+// port: 7175
 
 
 builder.Services.AddRazorPages();
