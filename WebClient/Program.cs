@@ -35,11 +35,29 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuer = true,
             ValidIssuer = "https://oauth.pslib.cz"
         };
+        options.Events = new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents
+        {/*
+            OnTokenValidated = ctx =>
+            {
+                
+                var email = ctx.Principal?.FindFirst("email")?.Value;
+                if (email is null || !email.EndsWith("@pslib.cz", StringComparison.OrdinalIgnoreCase))
+                {
+                    ctx.Fail("Email není z povolené domény.");
+                }
+                return Task.CompletedTask;
+            }
+            */
+        };
         options.SignedOutCallbackPath = "/signout-callback-oidc";
         options.SignedOutRedirectUri = "/";
     });
-// port: 7175
 
+builder.Services.AddHttpClient("WeatherApi", (sp, http) =>
+{
+    //var cfg = sp.GetRequiredService<IConfiguration>();
+    http.BaseAddress = new Uri("https://localhost:7175");
+});
 
 builder.Services.AddRazorPages();
 
