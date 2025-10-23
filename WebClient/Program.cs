@@ -26,7 +26,7 @@ builder.Services.AddAuthentication(options =>
         options.Scope.Add("openid");
         options.Scope.Add("demo.api");
         //options.Scope.Add("offline_access");
-        //options.Scope.Add("email");
+        options.Scope.Add("email");
         options.GetClaimsFromUserInfoEndpoint = false; // true
         options.TokenValidationParameters = new()
         {
@@ -36,7 +36,8 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = "https://oauth.pslib.cz"
         };
         options.Events = new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents
-        {/*
+        {
+            /*
             OnTokenValidated = ctx =>
             {
                 
@@ -47,7 +48,7 @@ builder.Services.AddAuthentication(options =>
                 }
                 return Task.CompletedTask;
             }
-            */
+           */
         };
         options.SignedOutCallbackPath = "/signout-callback-oidc";
         options.SignedOutRedirectUri = "/";
