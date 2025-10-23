@@ -2,3 +2,31 @@
 @model WebClient.Pages.WeatherModel
 @{
 }
+
+@if (Model.Error is not null)
+{
+    <div class="alert alert-danger mt-3">@Model.Error</div>
+}
+
+@if (Model.Items?.Any() == true)
+{
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Teplota (°C)</th>
+                <th>Popis</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var it in Model.Items)
+            {
+                <tr>
+                    <td>@it.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@it.TemperatureC</td>
+                    <td>@it.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
